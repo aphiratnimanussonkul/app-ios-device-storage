@@ -27,6 +27,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var usernames = getUsernames()
+            usernames.remove(at: indexPath.row)
+            UserDefaults.standard.set(usernames, forKey: "usernameArray")
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
