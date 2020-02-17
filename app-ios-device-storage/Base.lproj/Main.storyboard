@@ -53,7 +53,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add User" id="hCY-TN-iJF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qEN-lg-83E"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qEN-lg-83E">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="p0u-50-uK2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="PgW-tF-PJQ" id="opk-Uo-wel"/>
