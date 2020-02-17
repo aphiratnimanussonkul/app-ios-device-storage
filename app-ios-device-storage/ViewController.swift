@@ -22,7 +22,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "test"
+        
+        guard let data = UserDefaults.standard.object(forKey: "username1") else {
+            return cell
+        }
+        cell.textLabel?.text = data as! String
         return cell
     }
     
@@ -55,6 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         let otherAction = UIAlertAction(title: otherButtonTitle, style: .default, handler: {
             [weak self] _ in
             self?.usernameTextField.text = alertController.textFields![0].text
+            UserDefaults.standard.set(self?.usernameTextField.text, forKey: "username1")
+            self?.tableView.reloadData()
         })
         
         alertController.addAction(cencelAction)
