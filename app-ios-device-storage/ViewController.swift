@@ -8,25 +8,27 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    var usernameTextField: UITextField!
+    
     @IBAction func addButtonTapped(_ sender: Any) {
         showTextEntryAlert()
-        print(usernameTextField.text!)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
+            return 0
+        }
+        return usernames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        guard let data = UserDefaults.standard.object(forKey: "username1") else {
+        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
             return cell
         }
-        cell.textLabel?.text = data as! String
+        cell.textLabel?.text = usernames[indexPath.row]
         return cell
     }
     
@@ -46,9 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         
         alertController.addTextField {
             (textField) -> Void in
-            self.usernameTextField = textField
-            self.usernameTextField.delegate = self
-            self.usernameTextField.placeholder = "Username"
+            textField.placeholder = "Username"
         }
         
         
@@ -58,8 +58,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         
         let otherAction = UIAlertAction(title: otherButtonTitle, style: .default, handler: {
             [weak self] _ in
-            self?.usernameTextField.text = alertController.textFields![0].text
-            UserDefaults.standard.set(self?.usernameTextField.text, forKey: "username1")
+            guard let username = alertController.textFields![0].text else {
+                return
+            }
+            
+            guard var usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
+                return
+            }
+            usernames.append(username)
+            UserDefaults.standard.set(usernames, forKey: "usernameArray")
             self?.tableView.reloadData()
         })
         
