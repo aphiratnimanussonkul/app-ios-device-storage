@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         if editingStyle == .delete {
             var usernames = getUsernames()
             usernames.remove(at: indexPath.row)
-            UserDefaults.standard.set(usernames, forKey: "usernameArray")
+            setUsernames(usernames: usernames)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -68,7 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             
             var usernames = self!.getUsernames()
             usernames.append(username)
-            UserDefaults.standard.set(usernames, forKey: "usernameArray")
+            self?.setUsernames(usernames: usernames)
             self?.tableView.reloadData()
         })
         
@@ -84,6 +84,10 @@ class ViewController: UIViewController, UITableViewDataSource {
             return []
         }
         return usernames
+    }
+    
+    func setUsernames(usernames: [String]) {
+        UserDefaults.standard.set(usernames, forKey: "usernameArray")
     }
 
 }
