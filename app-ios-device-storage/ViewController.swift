@@ -16,18 +16,13 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
-            return 0
-        }
-        return usernames.count
+        return getUsernames().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
-            return cell
-        }
+        let usernames = getUsernames()
         cell.textLabel?.text = usernames[indexPath.row]
         return cell
     }
@@ -62,9 +57,7 @@ class ViewController: UIViewController, UITableViewDataSource {
                 return
             }
             
-            guard var usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
-                return
-            }
+            var usernames = self!.getUsernames()
             usernames.append(username)
             UserDefaults.standard.set(usernames, forKey: "usernameArray")
             self?.tableView.reloadData()
@@ -75,6 +68,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         present(alertController, animated: true, completion:  nil)
         
+    }
+    
+    func getUsernames() -> [String] {
+        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
+            return []
+        }
+        return usernames
     }
 
 }
