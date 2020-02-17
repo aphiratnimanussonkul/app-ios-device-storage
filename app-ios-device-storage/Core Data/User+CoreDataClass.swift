@@ -1,5 +1,5 @@
 //
-//  Users+CoreDataClass.swift
+//  User+CoreDataClass.swift
 //  app-ios-device-storage
 //
 //  Created by ODDS on 17/2/2563 BE.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Users)
-public class Users: NSManagedObject {
+
+public class User: NSManagedObject {
 
 }

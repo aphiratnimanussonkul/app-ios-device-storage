@@ -1,14 +1,20 @@
 import UIKit
+import CoreData
 
 class CoreDataViewController: UIViewController, UITableViewDataSource {
+    @IBAction func addButtonTapped(_ sender: Any) {
+        showTextEntryAlert()
+    }
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.getUsers()?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = self.getUsers()?[indexPath.row].name
+        return cell
     }
     
 
@@ -40,9 +46,7 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
                 return
             }
             
-            var usernames = self!.getUsernames()
-            usernames.append(username)
-            self?.setUsernames(usernames: usernames)
+            self?.setUser(username: username)
             self?.tableView.reloadData()
         })
         
@@ -53,14 +57,32 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func getUsernames() -> [String] {
-        guard let usernames = UserDefaults.standard.object(forKey: "usernameArray") as! [String]? else {
-            return []
+    func getUsers() -> [User]? {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let context = delegate?.persistentContainer.viewContext {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+            do {
+                let users = try context.fetch(fetchRequest) as? [User]
+                return users
+            } catch {
+                return nil
+            }
         }
-        return usernames
+        return nil
     }
     
-    func setUsernames(usernames: [String]) {
-        UserDefaults.standard.set(usernames, forKey: "usernameArray")
+    func setUser(username: String) {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let context = delegate?.persistentContainer.viewContext {
+            let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
+            user.name = username
+            
+           
+            do {
+                try context.save()
+            } catch  {
+                print(error)
+            }
+        }
     }
 }

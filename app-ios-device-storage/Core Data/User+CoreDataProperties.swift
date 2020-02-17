@@ -1,5 +1,5 @@
 //
-//  Users+CoreDataProperties.swift
+//  User+CoreDataProperties.swift
 //  app-ios-device-storage
 //
 //  Created by ODDS on 17/2/2563 BE.
@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension Users {
+extension User {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Users> {
-        return NSFetchRequest<Users>(entityName: "Users")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<User> {
+        return NSFetchRequest<User>(entityName: "User")
     }
 
     @NSManaged public var name: String?

@@ -267,7 +267,11 @@
                         <viewLayoutGuide key="safeArea" id="6PP-ct-fCP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Core Data" id="R0y-Eg-5bu">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VtT-mU-WAC"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VtT-mU-WAC">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="Z51-1O-uvr" id="a20-jD-CmB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="QdY-vx-IV4" id="Oy9-G2-IJD"/>
