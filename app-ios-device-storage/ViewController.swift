@@ -8,10 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
+    var usernameTextField: UITextField!
     @IBAction func addButtonTapped(_ sender: Any) {
         showTextEntryAlert()
+        print(usernameTextField.text!)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,16 +41,21 @@ class ViewController: UIViewController, UITableViewDataSource {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alertController.addTextField {
-            _ in
+            (textField) -> Void in
+            self.usernameTextField = textField
+            self.usernameTextField.delegate = self
+            self.usernameTextField.placeholder = "Username"
         }
+        
         
         let cencelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel) {
             _ in
         }
         
-        let otherAction = UIAlertAction(title: otherButtonTitle, style: .default) {
-            _ in
-        }
+        let otherAction = UIAlertAction(title: otherButtonTitle, style: .default, handler: {
+            [weak self] _ in
+            self?.usernameTextField.text = alertController.textFields![0].text
+        })
         
         alertController.addAction(cencelAction)
         alertController.addAction(otherAction)
