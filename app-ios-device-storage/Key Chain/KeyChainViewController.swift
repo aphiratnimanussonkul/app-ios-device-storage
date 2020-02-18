@@ -23,6 +23,15 @@ class KeyChainViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var usernames = getUsernames()
+            usernames.remove(at: indexPath.row)
+            setUsernames(usernames: usernames)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     func showTextEntryAlert() {
         let title = NSLocalizedString("Add User", comment: "")
         let message = NSLocalizedString("Enter username that you want to add", comment: "")
