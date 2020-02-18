@@ -17,6 +17,29 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            var usernames = getUsernames()
+//            usernames.remove(at: indexPath.row)
+//            setUsernames(usernames: usernames)
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let usernames = getUsers() else {
+                return
+            }
+            deleteUser(user: usernames[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +99,18 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
         if let context = delegate?.persistentContainer.viewContext {
             let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             user.name = username
-            
-           
             do {
                 try context.save()
             } catch  {
                 print(error)
             }
+        }
+    }
+    
+    func deleteUser(user: User) {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let context = delegate?.persistentContainer.viewContext {
+            context.delete(user)
         }
     }
 }

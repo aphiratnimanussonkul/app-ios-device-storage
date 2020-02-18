@@ -46,7 +46,6 @@ class KeyChainViewController: UIViewController, UITableViewDataSource {
             guard let username = alertController.textFields![0].text else {
                 return
             }
-            print("enter: \(username)")
             var usernames = self!.getUsernames()
             usernames.append(username)
             self?.setUsernames(usernames: usernames)
