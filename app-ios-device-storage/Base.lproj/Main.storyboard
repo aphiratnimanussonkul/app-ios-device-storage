@@ -314,7 +314,7 @@
                                 <rect key="frame" x="5" y="56" width="404" height="747"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="t6U-ik-3YC" style="IBUITableViewCellStyleDefault" id="jB8-af-60C">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="t6U-ik-3YC" style="IBUITableViewCellStyleDefault" id="jB8-af-60C">
                                         <rect key="frame" x="0.0" y="28" width="404" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jB8-af-60C" id="ySF-Zb-gm1">
@@ -333,7 +333,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="gKZ-QG-kF8" id="V2T-qa-Ywc"/>
+                                    <outlet property="dataSource" destination="gKZ-QG-kF8" id="9sO-eC-AZC"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -347,7 +347,11 @@
                         <viewLayoutGuide key="safeArea" id="6WF-7y-MMm"/>
                     </view>
                     <navigationItem key="navigationItem" title="Key Chain" id="jav-jK-hmJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aQg-Bp-pLu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aQg-Bp-pLu">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="gKZ-QG-kF8" id="YP4-dz-sGf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="jwt-Db-G2F" id="Ktl-YU-Lwc"/>
