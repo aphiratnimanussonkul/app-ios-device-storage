@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class CoreDataViewController: UIViewController, UITableViewDataSource {
+class CoreDataViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBAction func addButtonTapped(_ sender: Any) {
         showTextEntryAlert()
     }
@@ -17,19 +17,6 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            var usernames = getUsernames()
-//            usernames.remove(at: indexPath.row)
-//            setUsernames(usernames: usernames)
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let usernames = getUsers() else {
@@ -38,6 +25,10 @@ class CoreDataViewController: UIViewController, UITableViewDataSource {
             deleteUser(user: usernames[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 

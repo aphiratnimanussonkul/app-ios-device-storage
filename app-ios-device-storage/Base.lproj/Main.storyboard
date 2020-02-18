@@ -257,6 +257,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Z51-1O-uvr" id="YNn-IX-Peu"/>
+                                    <outlet property="delegate" destination="Z51-1O-uvr" id="U7r-Bt-hXZ"/>
                                 </connections>
                             </tableView>
                         </subviews>
