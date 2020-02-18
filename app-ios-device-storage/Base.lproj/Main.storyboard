@@ -335,6 +335,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="gKZ-QG-kF8" id="9sO-eC-AZC"/>
+                                    <outlet property="delegate" destination="gKZ-QG-kF8" id="d4G-NX-X7e"/>
                                 </connections>
                             </tableView>
                         </subviews>

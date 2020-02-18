@@ -1,7 +1,7 @@
 
 import UIKit
 
-class KeyChainViewController: UIViewController, UITableViewDataSource {
+class KeyChainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBAction func addButtonTapped(_ sender: Any) {
         showTextEntryAlert()
@@ -30,6 +30,10 @@ class KeyChainViewController: UIViewController, UITableViewDataSource {
             setUsernames(usernames: usernames)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func showTextEntryAlert() {
